@@ -1,4 +1,4 @@
-﻿namespace DiceEngine; 
+﻿namespace DiceEngine.DiceTools;
 public class Dice {
     private static Random _rnd = new Random();
     /// <summary>
@@ -18,16 +18,13 @@ public class Dice {
     /// <returns></returns>
     public static List<Dice> operator *(int n, Dice dice) {
         List<Dice> result = new List<Dice>();
-        for (int i = 0;  i < n; i++) result.Add(new Dice(dice));
+        for (int i = 0; i < n; i++)
+            result.Add(new Dice(dice));
         return result;
     }
 
     public readonly int[] Sides;
     public int SideCount => Sides.Length;
-    /// <summary>
-    /// Current dice value.
-    /// </summary>
-    public int Value { get; private set; }
 
     /// <summary>
     /// Creates a dice with specified amount of sides and puts standart values on them. 
@@ -36,9 +33,8 @@ public class Dice {
     /// <param name="sideCount">Amount of sides.</param>
     public Dice(int sideCount) {
         Sides = new int[sideCount];
-        for (int i = 0; i <  sideCount; i++)
+        for (int i = 0; i < sideCount; i++)
             Sides[i] = i + 1;
-        Value = Sides[0];
     }
 
     /// <summary>
@@ -47,7 +43,6 @@ public class Dice {
     /// <param name="sides">Values to put on the sides of the dice.</param>
     public Dice(int[] sides) {
         Sides = sides;
-        Value = Sides[0];
     }
 
     /// <summary>
@@ -62,8 +57,7 @@ public class Dice {
     /// <returns>New dice value.</returns>
     public int Roll() {
         var index = _rnd.Next(SideCount);
-        Value = Sides[index];
-        return Value;
+        return Sides[index];
     }
 }
 
