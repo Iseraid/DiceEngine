@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33502.453
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceEngine", "DiceEngine\DiceEngine.csproj", "{1513CC75-7185-4D15-8EAE-25DB9FB801FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceEngine.Tests", "DiceEngine.Tests\DiceEngine.Tests.csproj", "{BBF4EE94-1B2D-4517-87AC-02B199F04A5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1513CC75-7185-4D15-8EAE-25DB9FB801FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1513CC75-7185-4D15-8EAE-25DB9FB801FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1513CC75-7185-4D15-8EAE-25DB9FB801FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF4EE94-1B2D-4517-87AC-02B199F04A5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF4EE94-1B2D-4517-87AC-02B199F04A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF4EE94-1B2D-4517-87AC-02B199F04A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF4EE94-1B2D-4517-87AC-02B199F04A5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B1A5EED-C3C2-48EB-B9BA-25C9E177AE07}
+	EndGlobalSection
+EndGlobal
