@@ -52,12 +52,26 @@ public class Dice {
     public Dice(Dice other) : this(other.Sides) { }
 
     /// <summary>
-    /// Rolls the dice, changing its current value.
+    /// Rolls the dice.
     /// </summary>
-    /// <returns>New dice value.</returns>
+    /// <returns>Result of the roll.</returns>
     public int Roll() {
         var index = _rnd.Next(SideCount);
         return Sides[index];
+    }
+
+    public string ToString(bool incudeDetails = true) {
+        string dice = $"d{SideCount}";
+        if (!incudeDetails) return dice;
+        string details = "";
+        for (var i = 0; i < SideCount; i++) {
+            details += (i + 1 == SideCount) ? $"{Sides[i]}" : $"{Sides[i]}, ";
+        }
+        return $"{dice} ({details})";
+    }
+
+    public override string ToString() {
+        return ToString();
     }
 }
 

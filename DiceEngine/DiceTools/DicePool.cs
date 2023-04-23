@@ -38,4 +38,12 @@ public class DicePool : IEnumerable<Dice> {
     IEnumerator IEnumerable.GetEnumerator() {
         return Dice.GetEnumerator();
     }
+
+    public override string ToString() {
+        string dicePool = "";
+        for (var i = 0; i < DiceCount; i++) {
+            dicePool+= (i + 1 == DiceCount) ? $"{Dice[i]}" : $"{Dice[i]}, ";
+        }
+        return $"{{{dicePool}}}";
+    }
 }

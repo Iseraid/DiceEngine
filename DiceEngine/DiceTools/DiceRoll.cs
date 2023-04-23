@@ -1,9 +1,14 @@
-﻿namespace DiceEngine.DiceTools;
+﻿using System.Text;
+
+namespace DiceEngine.DiceTools;
 public class DiceRoll {
-    private int[] _result;
+    private int[] _values;
     private Dice[] _dice;
-    public DiceRoll(DicePool pool) {
+
+
+    public DiceRoll() {
 
     }
+
 }
 

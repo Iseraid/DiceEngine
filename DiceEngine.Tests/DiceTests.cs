@@ -8,6 +8,7 @@ public class DiceTests {
 
     }
 
+    #region Dice
     [Test]
     public void Multiply_3_D6() {
 
@@ -24,9 +25,20 @@ public class DiceTests {
         }
     }
 
+    [TestCase(new int[] {1, 2, 3, 4, 5, 6}, ExpectedResult = "d6 (1, 2, 3, 4, 5, 6)")]
+    [TestCase(new int[] { 3, 5, 7, 9 }, ExpectedResult = "d4 (3, 5, 7, 9)")]
+    public string DiceToStringWithDetails(int[] sides) {
+        Dice d = new Dice(sides);
+        return d.ToString();
+    }
+
+    #endregion
+
+    #region DicePool
+
     [Test]
     public void DicePoolEnumeration_4_D10() {
-        DicePool pool = new DicePool(4*Dice.D(10));
+        DicePool pool = new DicePool(4 * Dice.D(10));
         int count = 0;
         foreach (var d in pool) {
             Assert.IsTrue(d.SideCount == 10);
@@ -34,4 +46,6 @@ public class DiceTests {
         }
         Assert.That(count, Is.EqualTo(4));
     }
+
+    #endregion
 }
