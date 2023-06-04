@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using DiceEngine.Utilities;
+using System.Collections.ObjectModel;
 
 namespace DiceEngine.DiceTools;
 public class RollResult {
@@ -14,7 +15,7 @@ public class RollResult {
         return result;
     }
 
-    private Dictionary<int, float> _probabilities = new Dictionary<int, float>();
+    private Dictionary<int, Fraction> _probabilities = new Dictionary<int, Fraction>();
     public ReadOnlyDictionary<int, float> Probabilities => new ReadOnlyDictionary<int, float>(_probabilities);
 
     private RollResult() { }

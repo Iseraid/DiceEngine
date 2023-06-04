@@ -29,7 +29,7 @@ public class Fraction {
     public Fraction(int num, int denum) {
         if (denum == 0)
             throw new DivideByZeroException();
-        int divider = Utils.GCD(denum, num);
+        int divider = Utils.GCD(Math.Abs(denum), Math.Abs(num));
         if (divider != 1) {
             num /= divider;
             denum /= divider;
