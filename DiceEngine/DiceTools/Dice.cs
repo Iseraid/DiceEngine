@@ -55,9 +55,8 @@ public class Dice {
     /// Rolls the dice.
     /// </summary>
     /// <returns>Result of the roll.</returns>
-    public int Roll() {
-        var index = _rnd.Next(SideCount);
-        return Sides[index];
+    public RollResult Roll() {
+        return new RollResult(this);
     }
 
     public string ToString(bool incudeDetails = true) {
