@@ -8,7 +8,7 @@ public class RollResult {
         foreach (var p in res1._probabilities) {
             foreach (var q in res2._probabilities) {
                 int val = p.Key + q.Key;
-                float prob = p.Value * q.Value;
+                var prob = p.Value * q.Value;
                 result.AddProbability(val, prob);
             }
         }
@@ -16,11 +16,12 @@ public class RollResult {
     }
 
     private Dictionary<int, Fraction> _probabilities = new Dictionary<int, Fraction>();
-    public ReadOnlyDictionary<int, float> Probabilities => new ReadOnlyDictionary<int, float>(_probabilities);
+    public ReadOnlyDictionary<int, float> Probabilities => 
+        new ReadOnlyDictionary<int, float>(_probabilities.ToDictionary(pair =>  pair.Key, pair => (float) pair.Value));
 
     private RollResult() { }
 
-    private void AddProbability(int value, float probability) {
+    private void AddProbability(int value, Fraction probability) {
         if (_probabilities.ContainsKey(value)) {
             _probabilities[value] += probability;
         } else {
@@ -33,7 +34,7 @@ public class RollResult {
     /// </summary>
     /// <param name="dice">The dice whose roll result is being created.</param>
     public RollResult(Dice dice) {
-        float sideProb = 1f / dice.SideCount;
+        var sideProb = new Fraction(1, dice.SideCount);
         foreach (var side in dice.Sides) {
             AddProbability(side, sideProb);
         }
@@ -47,14 +48,14 @@ public class RollResult {
     /// <returns>Roll result transformed by the specified accordance law.</returns>
     public RollResult Transform(Dictionary<int, int> accordance) {
         RollResult result = new RollResult();
-        result._probabilities = new Dictionary<int, float>();
+        result._probabilities = new Dictionary<int, Fraction>();
         foreach (var valProbPair in _probabilities) {
             //Find if we have an according new value for an old one. If we do, then
             //save it to a newVal and also save old value probability to valProb
             if (!accordance.ContainsKey(valProbPair.Key))
                 continue;
             int newVal = accordance[valProbPair.Key];
-            float valProb = valProbPair.Value;
+            Fraction valProb = valProbPair.Value;
 
             //Add probability (in additive manner) to the new roll result dictionary
             result.AddProbability(newVal, valProb);

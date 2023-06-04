@@ -1,18 +1,30 @@
 ﻿using DiceEngine.DiceTools;
+using DiceEngine.Utilities;
 
 namespace DiceEngine.Tests;
 
 public class RollResultTests {
+
+    [Test]
+    public void RollResultTest_Float_Dictionary_Test() {
+        Dice d = Dice.D(20);
+        var res = d.Roll();
+        TestContext.WriteLine(string.Join(", ", res.Probabilities));
+    }
+
     [Test]
     public void RollResultTest_D10() {
         Dice d = Dice.D(10);
         RollResult res = d.Roll();
         Dictionary<int, float> actual = new Dictionary<int, float>();
         foreach (var side in d.Sides) {
-            actual[side] = 1f / 10;
+            actual[side] = 1f/10;
             TestContext.WriteLine(actual[side]);
         }
         Assert.That(actual, Is.EqualTo(res.Probabilities).Within(0.00001f));
+        /*foreach (var prob in res.Probabilities) {
+            Assert.That((float) prob.Value, Is.EqualTo((float) actual[prob.Key]).Within(0.00001f));
+        }*/
     }
 
     [Test]
@@ -30,7 +42,7 @@ public class RollResultTests {
             {6, 1f/9 }
         };
         TestContext.WriteLine("Actual: " + string.Join(", ", actual));
-        Assert.That(actual, Is.EqualTo(res.Probabilities).Within(0.00001f));
+        Assert.That(actual, Is.EqualTo(res.Probabilities));//.Within(0.00001f));
     }
 
     [Test]
@@ -50,11 +62,11 @@ public class RollResultTests {
 
         TestContext.WriteLine("Result: " + string.Join(", ", res.Probabilities));
         Dictionary<int, float> actual = new Dictionary<int, float> {
-            { -1, 0.1f },
-            { 0, 0.4f },
-            { 1, 0.5f }
+            { -1, 1f/10 },
+            { 0, 4f/10 },
+            { 1, 5f/10 }
         };
-        Assert.That(actual, Is.EqualTo(res.Probabilities).Within(0.00001f));
+        Assert.That(actual, Is.EqualTo(res.Probabilities));//.Within(0.00001f));
     }
 
     /*[Test]
