@@ -30,4 +30,25 @@ public class DiceTests {
         Dice d = new Dice(sides);
         return d.ToString();
     }
+
+    [Test]
+    public void DiceRoll_Static_Method_Single_D10() { 
+        Dice d = Dice.D(10);
+        var result = Dice.Roll(d);
+        Dictionary<int, float> actual = new Dictionary<int, float>();
+        for (int i = 0; i < d.SideCount; i++)
+            actual[d.Sides[i]] = 1f / 10;
+        Assert.That(actual, Is.EqualTo(result.Probabilities));
+    }
+
+    [Test]
+    public void DiceRoll_Static_Method_3_D10() {
+        List<Dice> dice = 3 * Dice.D(10);
+        var result = Dice.Roll(dice);
+        Dictionary<int, float> actual = new Dictionary<int, float>();
+        for (int i = 0; i < dice[0].SideCount; i++)
+            actual[dice[0].Sides[i]] = 1f / 10;
+        foreach (var r in result)
+            Assert.That(actual, Is.EqualTo(r.Probabilities));
+    }
 }

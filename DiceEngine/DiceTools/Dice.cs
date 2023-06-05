@@ -23,6 +23,24 @@ public class Dice {
         return result;
     }
 
+    /// <summary>
+    /// Rolls the specified dice.
+    /// </summary>
+    /// <param name="dice">Dice to roll.</param>
+    /// <returns>Result of the roll.</returns>
+    public static RollResult Roll(Dice dice) {
+        return dice.Roll();
+    }
+
+    /// <summary>
+    /// Rolls the supplied list of dice.
+    /// </summary>
+    /// <param name="diceList">Dice to roll.</param>
+    /// <returns>List of roll results.</returns>
+    public static List<RollResult> Roll(List<Dice> diceList) {
+        return diceList.Select(d => d.Roll()).ToList();
+    }
+
     public readonly int[] Sides;
     public int SideCount => Sides.Length;
 
