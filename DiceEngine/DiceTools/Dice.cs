@@ -23,7 +23,7 @@ public class Dice {
         return result;
     }
 
-    /// <summary>
+    /*/// <summary>
     /// Rolls the specified dice.
     /// </summary>
     /// <param name="dice">Dice to roll.</param>
@@ -39,7 +39,7 @@ public class Dice {
     /// <returns>List of roll results.</returns>
     public static List<RollResult> Roll(List<Dice> diceList) {
         return diceList.Select(d => d.Roll()).ToList();
-    }
+    }*/
 
     public readonly int[] Sides;
     public int SideCount => Sides.Length;
@@ -69,13 +69,13 @@ public class Dice {
     /// <param name="other">Dice to copy.</param>
     public Dice(Dice other) : this(other.Sides) { }
 
-    /// <summary>
+    /*/// <summary>
     /// Rolls the dice.
     /// </summary>
     /// <returns>Result of the roll.</returns>
     public RollResult Roll() {
         return new RollResult(this);
-    }
+    }*/
 
     public string ToString(bool incudeDetails = true) {
         string dice = $"d{SideCount}";

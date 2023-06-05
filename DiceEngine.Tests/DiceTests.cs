@@ -34,7 +34,7 @@ public class DiceTests {
     [Test]
     public void DiceRoll_Static_Method_Single_D10() { 
         Dice d = Dice.D(10);
-        var result = Dice.Roll(d);
+        var result = d.Roll();
         Dictionary<int, float> actual = new Dictionary<int, float>();
         for (int i = 0; i < d.SideCount; i++)
             actual[d.Sides[i]] = 1f / 10;
@@ -44,7 +44,7 @@ public class DiceTests {
     [Test]
     public void DiceRoll_Static_Method_3_D10() {
         List<Dice> dice = 3 * Dice.D(10);
-        var result = Dice.Roll(dice);
+        var result = dice.Roll();
         Dictionary<int, float> actual = new Dictionary<int, float>();
         for (int i = 0; i < dice[0].SideCount; i++)
             actual[dice[0].Sides[i]] = 1f / 10;
