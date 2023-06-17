@@ -128,26 +128,32 @@ public class RollResultTests {
     }
 
     [Test]
+    public void TestRollResult_3D6_With_Utils() {
+        var dice = 3 * Dice.D(6);
+        var result = dice.Roll().Add();
+        TestContext.WriteLine(string.Join(", ", result!.Probabilities));
+    }
+
+    [Test]
     public void TestRollResult_Stuff() {
-        Dice[] dice = { Dice.D(6), Dice.D(10) };
-        Dice d2 = Dice.D(6);
-        Dice d3 = Dice.D(10);
-        Dice d4 = Dice.D(20);
-        var res2 = d2.Roll();
-        var res3 = d3.Roll();
-        var res4 = d4.Roll();
-        var res = res2 + res3 + res4;
-        res = res.Transform((int[] vals) => {
-            int[] newVals = new int[vals.Length];
-            for (int i = 0; i < vals.Length; i++) {
-                if (vals[i] < 4)
-                    newVals[i] = 1;
-                else
-                    newVals[i] = 0;
+        var res = (100 * Dice.D(10)).Roll();
+        for (int i = 0; i < res.Count; i++) {
+            res[i] = res[i].IntervalTransform((1, 1, -1), (2, 5, 0), (6, 10, 1));
+        }
+        var result = res.Add();
+        result = result.Transform((int[] input) => {
+            int[] output = new int[input.Length];
+            for (int i = 0; i < input.Length; i++) {
+                if (input[i] > 0)
+                    output[i] = 1;
+                if (input[i] == 0)
+                    output[i] = 0;
+                if (input[i] < 0)
+                    output[i] = -1;
             }
-            return newVals;
+            return output;
         });
-        TestContext.WriteLine("Result: " + string.Join(", ", res.Probabilities));
+        TestContext.WriteLine("Result: " + string.Join(", ", result.Probabilities));
     }
 }
 

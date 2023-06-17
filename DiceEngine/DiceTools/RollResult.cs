@@ -15,13 +15,13 @@ public class RollResult {
         return result;
     }
 
-    private Dictionary<int, Fraction> _probabilities = new Dictionary<int, Fraction>();
+    private Dictionary<int, decimal> _probabilities = new Dictionary<int, decimal>();
     public ReadOnlyDictionary<int, float> Probabilities => 
         new ReadOnlyDictionary<int, float>(_probabilities.ToDictionary(pair =>  pair.Key, pair => (float) pair.Value));
 
     private RollResult() { }
 
-    private void AddProbability(int value, Fraction probability) {
+    private void AddProbability(int value, decimal probability) {
         if (_probabilities.ContainsKey(value)) {
             _probabilities[value] += probability;
         } else {
@@ -34,7 +34,7 @@ public class RollResult {
     /// </summary>
     /// <param name="dice">The dice whose roll result is being created.</param>
     public RollResult(Dice dice) {
-        var sideProb = new Fraction(1, dice.SideCount);
+        decimal sideProb = 1M / dice.SideCount;//new Fraction(1, dice.SideCount);
         foreach (var side in dice.Sides) {
             AddProbability(side, sideProb);
         }
@@ -48,14 +48,14 @@ public class RollResult {
     /// <returns>Roll result transformed by the specified accordance law.</returns>
     public RollResult Transform(Dictionary<int, int> accordance) {
         RollResult result = new RollResult();
-        result._probabilities = new Dictionary<int, Fraction>();
+        result._probabilities = new Dictionary<int, decimal>();
         foreach (var valProbPair in _probabilities) {
             //Find if we have an according new value for an old one. If we do, then
             //save it to a newVal and also save old value probability to valProb
             if (!accordance.ContainsKey(valProbPair.Key))
                 continue;
             int newVal = accordance[valProbPair.Key];
-            Fraction valProb = valProbPair.Value;
+            decimal valProb = valProbPair.Value;
 
             //Add probability (in additive manner) to the new roll result dictionary
             result.AddProbability(newVal, valProb);
@@ -83,14 +83,16 @@ public class RollResult {
         return Transform(accordance);
     }
 
-    /// <summary>
-    /// Applies transformation to roll result that maps previous roll values and probabilities 
-    /// to new ones by the supplied accordance law.
-    /// </summary>
-    /// <param name="conditionals"></param>
-    /// <param name="defaultCorrespondingValue"></param>
-    /// <returns>Roll result transformed by the specified accordance law.</returns>
-    public RollResult Transform(int defaultCorrespondingValue, params (bool condition, int correspondingValue)[] conditionals) {
-        throw new NotImplementedException();
+    public RollResult IntervalTransform(params (int left, int right, int newValue)[] intervals) {
+        RollResult result = new RollResult();
+        foreach (var valProb in _probabilities) {
+            var val = valProb.Key;
+            var prob = valProb.Value;
+            var interval = intervals.FirstOrDefault(i => val >= i.left && val <= i.right);
+            if (interval == default)
+                continue;
+            result.AddProbability(interval.newValue, prob);
+        }
+        return result;
     }
 }

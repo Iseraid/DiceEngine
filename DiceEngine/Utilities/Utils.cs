@@ -5,7 +5,7 @@ public static class Utils {
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns>Greatest common divisor</returns>
-    public static int GCD(int a, int b) {
+    public static long GCD(long a, long b) {
         if (a == 0) {
             return b;
         } else {

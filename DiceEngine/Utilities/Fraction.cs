@@ -10,8 +10,8 @@ public class Fraction {
     public static Fraction operator +(Fraction a, Fraction b) {
         if (a.D == b.D)
             return new Fraction(a.N + b.N, a.D);
-        int newDenum = a.D * b.D;
-        int newNum = a.N * b.D + b.N * a.D;
+        var newDenum = a.D * b.D;
+        var newNum = a.N * b.D + b.N * a.D;
         return new Fraction(newNum, newDenum);
     }
     public static Fraction operator -(Fraction a, Fraction b) {
@@ -21,15 +21,15 @@ public class Fraction {
     /// <summary>
     /// Numerator.
     /// </summary>
-    public int N { get; set; }
+    public long N { get; set; }
     /// <summary>
     /// Denumerator.
     /// </summary>
-    public int D { get; set; } = 1;
-    public Fraction(int num, int denum) {
+    public long D { get; set; } = 1;
+    public Fraction(long num, long denum) {
         if (denum == 0)
             throw new DivideByZeroException();
-        int divider = Utils.GCD(Math.Abs(denum), Math.Abs(num));
+        long divider = Utils.GCD(Math.Abs(denum), Math.Abs(num));
         if (divider != 1) {
             num /= divider;
             denum /= divider;
