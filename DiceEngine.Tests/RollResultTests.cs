@@ -136,10 +136,10 @@ public class RollResultTests {
 
     [Test]
     public void TestRollResult_Stuff() {
-        var res = (100 * Dice.D(10)).Roll();
-        for (int i = 0; i < res.Count; i++) {
+        var res = (10 * Dice.D(10)).Roll().IntervalTransform((1, 1, -1), (2, 5, 0), (6, 10, 1));
+        /*for (int i = 0; i < res.Count; i++) {
             res[i] = res[i].IntervalTransform((1, 1, -1), (2, 5, 0), (6, 10, 1));
-        }
+        }*/
         var result = res.Add();
         result = result.Transform((int[] input) => {
             int[] output = new int[input.Length];

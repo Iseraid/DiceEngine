@@ -33,5 +33,9 @@ public static class DiceUtils {
         }
         return result;
     }
+
+    public static List<RollResult> IntervalTransform(this List<RollResult> rollResults, params (int left, int right, int newValue)[] intervals) {
+        return rollResults.Select(res => res.IntervalTransform(intervals)).ToList();
+    }
 }
 
