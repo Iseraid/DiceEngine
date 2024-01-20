@@ -48,7 +48,7 @@ public class RollResultTests {
     [Test]
     public void RollResultTest_D10_Transform_FuncAccordance() {
         Dice d = Dice.D(10);
-        RollResult res = d.Roll().Transform((int[] vals) => {
+        RollResult res = d.Roll().ReMap((int[] vals) => {
             int[] newVals = new int[vals.Length];
             for (int i = 0; i < vals.Length; i++) {
                 newVals[i] = 1;
@@ -98,8 +98,8 @@ public class RollResultTests {
             return newVals;
         };
 
-        RollResult res1 = d.Roll().Transform(WODRules);
-        RollResult res2 = d.Roll().Transform(WODRules);
+        RollResult res1 = d.Roll().ReMap(WODRules);
+        RollResult res2 = d.Roll().ReMap(WODRules);
         RollResult res = res1 + res2;
         TestContext.WriteLine("Result: " + string.Join(", ", res.Probabilities));
     }
@@ -112,7 +112,7 @@ public class RollResultTests {
         RollResult res3 = d.Roll();
         RollResult res4 = res1 + res2 + res3;
         TestContext.WriteLine("Intermidiate result: " + string.Join(", ", res4.Probabilities));
-        RollResult res = res4.Transform((int[] vals) => {
+        RollResult res = res4.ReMap((int[] vals) => {
             int[] newVals = new int[vals.Length];
             for (int i = 0; i < vals.Length; i++) {
                 if (vals[i] == 18)
@@ -141,7 +141,7 @@ public class RollResultTests {
             res[i] = res[i].IntervalTransform((1, 1, -1), (2, 5, 0), (6, 10, 1));
         }*/
         var result = res.Add();
-        result = result.Transform((int[] input) => {
+        result = result.ReMap((int[] input) => {
             int[] output = new int[input.Length];
             for (int i = 0; i < input.Length; i++) {
                 if (input[i] > 0)

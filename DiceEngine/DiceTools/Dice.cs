@@ -46,7 +46,7 @@ public class Dice {
 
     /// <summary>
     /// Creates a dice with specified amount of sides and puts standart values on them. 
-    /// (For example, a d6 created this way would have values: {1, 2, 3, 4, 5, 6}
+    /// (For example, a d6 created this way would have values: {1, 2, 3, 4, 5, 6})
     /// </summary>
     /// <param name="sideCount">Amount of sides.</param>
     public Dice(int sideCount) {

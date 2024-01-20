@@ -34,7 +34,7 @@ public class RollResult {
     /// </summary>
     /// <param name="dice">The dice whose roll result is being created.</param>
     public RollResult(Dice dice) {
-        decimal sideProb = 1M / dice.SideCount;//new Fraction(1, dice.SideCount);
+        decimal sideProb = 1M / dice.SideCount;
         foreach (var side in dice.Sides) {
             AddProbability(side, sideProb);
         }
@@ -46,7 +46,7 @@ public class RollResult {
     /// </summary>
     /// <param name="accordance">Accordance used to map previous roll values and probabilities.</param>
     /// <returns>Roll result transformed by the specified accordance law.</returns>
-    public RollResult Transform(Dictionary<int, int> accordance) {
+    public RollResult ReMap(Dictionary<int, int> accordance) {
         RollResult result = new RollResult();
         result._probabilities = new Dictionary<int, decimal>();
         foreach (var valProbPair in _probabilities) {
@@ -69,7 +69,7 @@ public class RollResult {
     /// </summary>
     /// <param name="accordanceFunc">Accordance used to map previous roll values and probabilities.</param>
     /// <returns>Roll result transformed by the specified accordance law.</returns>
-    public RollResult Transform(Func<int[], int[]> accordanceFunc) {
+    public RollResult ReMap(Func<int[], int[]> accordanceFunc) {
         int[] prevValues = _probabilities.Keys.ToArray();
         //Calculate new values by the accordance law
         int[] newValues = accordanceFunc(prevValues);
@@ -80,7 +80,7 @@ public class RollResult {
         for (int i = 0; i < prevValues.Length; i++) {
             accordance[prevValues[i]] = newValues[i];
         }
-        return Transform(accordance);
+        return ReMap(accordance);
     }
 
     public RollResult IntervalTransform(params (int left, int right, int newValue)[] intervals) {
