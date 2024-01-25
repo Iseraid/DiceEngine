@@ -1,6 +1,5 @@
 ﻿namespace DiceEngine.DiceTools;
 public class Dice {
-    private static Random _rnd = new Random();
     /// <summary>
     /// Creates a dice with specified amount of sides and puts standart values on them. 
     /// (For example, a d6 created this way would have values: {1, 2, 3, 4, 5, 6}
@@ -23,24 +22,6 @@ public class Dice {
         return result;
     }
 
-    /*/// <summary>
-    /// Rolls the specified dice.
-    /// </summary>
-    /// <param name="dice">Dice to roll.</param>
-    /// <returns>Result of the roll.</returns>
-    public static RollResult Roll(Dice dice) {
-        return dice.Roll();
-    }
-
-    /// <summary>
-    /// Rolls the supplied list of dice.
-    /// </summary>
-    /// <param name="diceList">Dice to roll.</param>
-    /// <returns>List of roll results.</returns>
-    public static List<RollResult> Roll(List<Dice> diceList) {
-        return diceList.Select(d => d.Roll()).ToList();
-    }*/
-
     public readonly int[] Sides;
     public int SideCount => Sides.Length;
 
@@ -60,7 +41,7 @@ public class Dice {
     /// </summary>
     /// <param name="sides">Values to put on the sides of the dice.</param>
     public Dice(int[] sides) {
-        Sides = sides;
+        Sides = sides.ToArray(); //It actually copies values and not the reference
     }
 
     /// <summary>
@@ -68,14 +49,6 @@ public class Dice {
     /// </summary>
     /// <param name="other">Dice to copy.</param>
     public Dice(Dice other) : this(other.Sides) { }
-
-    /*/// <summary>
-    /// Rolls the dice.
-    /// </summary>
-    /// <returns>Result of the roll.</returns>
-    public RollResult Roll() {
-        return new RollResult(this);
-    }*/
 
     public string ToString(bool incudeDetails = true) {
         string dice = $"d{SideCount}";
