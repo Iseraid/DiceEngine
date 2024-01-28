@@ -15,9 +15,9 @@ public class RollResult {
         return result;
     }
 
-    private Dictionary<int, decimal> _probabilities = new Dictionary<int, decimal>();
+    private Dictionary<int, decimal> _probabilities = new();
     public ReadOnlyDictionary<int, float> Probabilities => 
-        new ReadOnlyDictionary<int, float>(_probabilities.ToDictionary(pair =>  pair.Key, pair => (float) pair.Value));
+        new(_probabilities.ToDictionary(pair =>  pair.Key, pair => (float) pair.Value));
 
     private RollResult() { }
 
@@ -47,8 +47,9 @@ public class RollResult {
     /// <param name="accordance">Accordance used to map previous roll values and probabilities.</param>
     /// <returns>Roll result transformed by the specified accordance law.</returns>
     public RollResult ReMap(Dictionary<int, int> accordance) {
-        RollResult result = new RollResult();
-        result._probabilities = new Dictionary<int, decimal>();
+        RollResult result = new RollResult {
+            _probabilities = new Dictionary<int, decimal>()
+        };
         foreach (var valProbPair in _probabilities) {
             //Find if we have an according new value for an old one. If we do, then
             //save it to a newVal and also save old value probability to valProb

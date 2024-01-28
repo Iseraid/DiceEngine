@@ -1,13 +1,8 @@
 using DiceEngine.DiceTools;
-using System.Collections.ObjectModel;
 
 namespace DiceEngine.Tests;
 
 public class DiceTests {
-    [SetUp]
-    public void Setup() {
-
-    }
 
     [Test]
     public void Multiply_3_D6() {

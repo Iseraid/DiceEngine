@@ -1,5 +1,4 @@
 ﻿using DiceEngine.DiceTools;
-using DiceEngine.Utilities;
 
 namespace DiceEngine.Tests;
 
@@ -86,7 +85,7 @@ public class RollResultTests {
     [Test]
     public void TestRollResult_2D10_WOD_Rules() {
         Dice d = Dice.D(10);
-        Func<int[], int[]> WODRules = (int[] vals) => {
+        Func<int[], int[]> WODRules = vals => {
             int[] newVals = new int[vals.Length];
             for (int i = 0; i < vals.Length; i++) {
                 newVals[i] = 1;
