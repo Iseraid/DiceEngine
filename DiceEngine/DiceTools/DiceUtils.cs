@@ -24,7 +24,7 @@ public static class DiceUtils {
     /// </summary>
     /// <param name="rollResults">List of results for addition.</param>
     /// <returns>Addition result for the supplied roll results.</returns>
-    public static RollResult Add(this List<RollResult> rollResults) {
+    public static RollResult Sum(this List<RollResult> rollResults) {
         if (rollResults.Count == 0)
             throw new InvalidOperationException("List of roll results must contain at least one element.");
         var result = rollResults[0];

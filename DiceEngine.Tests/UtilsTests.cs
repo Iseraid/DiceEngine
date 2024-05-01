@@ -1,4 +1,5 @@
 ﻿using DiceEngine.Utilities;
+using NUnit.Framework;
 
 namespace DiceEngine.Tests;
 

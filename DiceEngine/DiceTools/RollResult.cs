@@ -89,10 +89,12 @@ public class RollResult {
         foreach (var valProb in _probabilities) {
             var val = valProb.Key;
             var prob = valProb.Value;
-            var interval = intervals.FirstOrDefault(i => val >= i.left && val <= i.right);
-            if (interval == default)
-                continue;
-            result.AddProbability(interval.newValue, prob);
+            try {
+                var interval = intervals.First(i => val >= i.left && val <= i.right);
+                result.AddProbability(interval.newValue, prob);
+            }
+            catch (InvalidOperationException e) {
+            }
         }
         return result;
     }

@@ -1,4 +1,5 @@
 ﻿using DiceEngine.DiceTools;
+using NUnit.Framework;
 
 namespace DiceEngine.Tests;
 
@@ -129,7 +130,7 @@ public class RollResultTests {
     [Test]
     public void TestRollResult_3D6_With_Utils() {
         var dice = 3 * Dice.D(6);
-        var result = dice.Roll().Add();
+        var result = dice.Roll().Sum();
         TestContext.WriteLine(string.Join(", ", result!.Probabilities));
     }
 
@@ -139,7 +140,7 @@ public class RollResultTests {
         /*for (int i = 0; i < res.Count; i++) {
             res[i] = res[i].IntervalTransform((1, 1, -1), (2, 5, 0), (6, 10, 1));
         }*/
-        var result = res.Add();
+        var result = res.Sum();
         result = result.ReMap((int[] input) => {
             int[] output = new int[input.Length];
             for (int i = 0; i < input.Length; i++) {
