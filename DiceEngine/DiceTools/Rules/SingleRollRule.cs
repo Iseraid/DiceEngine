@@ -6,8 +6,6 @@ public class SingleRollRule {
     internal SingleRollRule() {
     }
     
-    
-    
     public RollResult Apply(Dice dice) => Apply(dice.Roll());
     
     public RollResult Apply(RollResult input) {
