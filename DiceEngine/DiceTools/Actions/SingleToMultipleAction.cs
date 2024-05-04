@@ -1,27 +1,21 @@
 ﻿namespace DiceEngine.DiceTools.Actions; 
 
-public class SingleToMultipleAction : RuleAction, ISingleInputAction {
+public class SingleToMultipleAction : RuleAction, IMultipleOutputAction {
     private Func<RollResult, List<RollResult>> ActionFunction { get; set; }
-    private IMultipleInputAction? FollowingAction { get; set; }
-
-    public SingleToMultipleAction(Func<RollResult, List<RollResult>> actionFunction) {
+    private ISingleOutputAction? PreviousAction { get; set; }
+    public RollResult? Input { get; set; }
+    
+    public SingleToMultipleAction(
+        Func<RollResult, List<RollResult>> actionFunction,
+        ISingleOutputAction? previousAction = null) {
         ActionFunction = actionFunction;
-    }
-    public void Perform(RollResult input, out RollResult finalResult) {
-        var output = ActionFunction(input);
-        if (FollowingAction == null)
-            throw new NullReferenceException(
-                "Actions that return multiple roll results must have a continuation with a single roll result output!");
-        FollowingAction.Perform(output, out finalResult);
+        PreviousAction = previousAction;
     }
     
-    public MultipleToSingleAction FollowWith(MultipleToSingleAction action) {
-        FollowingAction = action;
-        return action;
-    }
-
-    public MultipleToMultipleAction FollowWith(MultipleToMultipleAction action) {
-        FollowingAction = action;
-        return action;
+    public List<RollResult> Perform() {
+        if (PreviousAction != null) return ActionFunction(PreviousAction.Perform());
+        if (Input == null)
+            throw new NullReferenceException("Action required input, but it wasn't provided.");
+        return ActionFunction(Input);
     }
 }
