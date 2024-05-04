@@ -1,6 +1,6 @@
 ﻿namespace DiceEngine.DiceTools.Actions; 
 
-public class SingleToSingleAction : RuleAction, ISingleInputAction, ISingleOutputAction {
+public class SingleToSingleAction : ISingleInputAction, ISingleOutputAction {
     private Func<RollResult, RollResult> ActionFunction { get; set; }
     private ISingleOutputAction? PreviousAction { get; set; }
     public RollResult? Input { get; set; }

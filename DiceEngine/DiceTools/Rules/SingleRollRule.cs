@@ -3,16 +3,16 @@
 namespace DiceEngine.DiceTools.Rules; 
 
 public class SingleRollRule {
-    private ISingleInputAction FirstAction { get; set; }
-    private ISingleOutputAction LastAction { get; set; }
+    private ISingleInputAction ActionChainStart { get; set; }
+    private ISingleOutputAction ActionChainEnd { get; set; }
 
-    public SingleRollRule(ISingleInputAction firstAction, ISingleOutputAction lastAction) {
-        FirstAction = firstAction;
-        LastAction = lastAction;
+    public SingleRollRule(ISingleInputAction actionChainStart, ISingleOutputAction actionChainEnd) {
+        ActionChainStart = actionChainStart;
+        ActionChainEnd = actionChainEnd;
     }
     public RollResult Apply(Dice dice) => Apply(dice.Roll());
     public RollResult Apply(RollResult input) {
-        FirstAction.Input = input;
-        return LastAction.Perform();
+        ActionChainStart.Input = input;
+        return ActionChainEnd.Perform();
     }
 }

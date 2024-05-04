@@ -1,6 +1,6 @@
 ﻿namespace DiceEngine.DiceTools.Actions; 
 
-public class MultipleToMultipleAction : RuleAction, IMultipleInputAction, IMultipleOutputAction {
+public class MultipleToMultipleAction : IMultipleInputAction, IMultipleOutputAction {
     private Func<List<RollResult>, List<RollResult>> ActionFunction { get; set; }
     public IMultipleOutputAction? PreviousAction { get; private set; }
     public List<RollResult>? Input { get; set; }
