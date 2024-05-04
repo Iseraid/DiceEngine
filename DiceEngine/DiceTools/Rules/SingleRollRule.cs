@@ -1,14 +1,18 @@
-﻿namespace DiceEngine.DiceTools.Rules; 
+﻿using DiceEngine.DiceTools.Actions;
+
+namespace DiceEngine.DiceTools.Rules; 
 
 public class SingleRollRule {
-    protected List<Func<RollResult, RollResult>> Actions { get; } = new();
-    
-    internal SingleRollRule() {
+    private ISingleInputAction FirstAction { get; set; }
+    private ISingleOutputAction LastAction { get; set; }
+
+    public SingleRollRule(ISingleInputAction firstAction, ISingleOutputAction lastAction) {
+        FirstAction = firstAction;
+        LastAction = lastAction;
     }
-    
     public RollResult Apply(Dice dice) => Apply(dice.Roll());
-    
     public RollResult Apply(RollResult input) {
-        throw new NotImplementedException();
+        FirstAction.Input = input;
+        return LastAction.Perform();
     }
 }
