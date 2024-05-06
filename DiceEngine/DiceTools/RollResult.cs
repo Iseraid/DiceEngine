@@ -84,7 +84,16 @@ public class RollResult {
         return ReMap(accordance);
     }
 
-    public RollResult IntervalTransform(params (int left, int right, int newValue)[] intervals) {
+    public RollResult ReMap(Func<int, int> rule) {
+        var rollResult = new RollResult();
+        foreach (var key in _probabilities.Keys) {
+            rollResult.AddProbability(rule(key), _probabilities[key]);
+        }
+
+        return rollResult;
+    }
+
+    public RollResult IntervalReMap(params (int left, int right, int newValue)[] intervals) {
         RollResult result = new RollResult();
         foreach (var valProb in _probabilities) {
             var val = valProb.Key;

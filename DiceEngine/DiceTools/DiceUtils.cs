@@ -35,7 +35,15 @@ public static class DiceUtils {
     }
 
     public static List<RollResult> IntervalTransform(this List<RollResult> rollResults, params (int left, int right, int newValue)[] intervals) {
-        return rollResults.Select(res => res.IntervalTransform(intervals)).ToList();
+        return rollResults.Select(res => res.IntervalReMap(intervals)).ToList();
+    }
+
+    public static void SaveToFile(this RollResult rollResult, string fileName, string? format = null) {
+        string content = string.Empty;
+        foreach (var prob in rollResult.Probabilities) {
+            content += $"{prob.Key} {prob.Value.ToString(format)}\n";
+        }
+        File.WriteAllText(fileName, content);
     }
 }
 
