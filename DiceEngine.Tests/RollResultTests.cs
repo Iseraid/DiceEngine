@@ -69,6 +69,14 @@ public class RollResultTests {
         Assert.That(actual, Is.EqualTo(res.Probabilities));//.Within(0.00001f));
     }
 
+    [Test]
+    public void RollResultTest_D10_ReMap() {
+        Dice d = Dice.D(10);
+        RollResult roll = d.Roll();
+        roll = roll.ReMap(prev => prev + 5);
+        TestContext.WriteLine(string.Join("\n", roll.Probabilities.Select(kv => $"{kv.Key} {kv.Value}")));
+    }
+    
     /*[Test]
     public void RollResultTest_D10_Transform_ConditionalAccordance() {
         Dice d = Dice.D(10);

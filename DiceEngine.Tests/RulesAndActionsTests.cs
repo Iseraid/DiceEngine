@@ -15,7 +15,7 @@ public class RulesAndActionsTests
         
         var action1 = new MultipleToSingleAction(input => input.Sum());
         var action2 = new SingleToSingleAction(input =>
-            input.IntervalTransform((3, 12, 1), (13, 18, -1)), action1);
+            input.IntervalReMap((3, 12, 1), (13, 18, -1)), action1);
         action1.Input = (3 * Dice.D(6)).Roll();
         var result = action2.Perform();
         TestContext.WriteLine(string.Join(", ", result.Probabilities
@@ -26,7 +26,7 @@ public class RulesAndActionsTests
     public void ChainingActions_Test() {
         var startAction = RuleAction.For(input => input.Sum());
         startAction.Input = (3 * Dice.D(6)).Roll();
-        var endAction = startAction.FollowWith(input => input.IntervalTransform((3, 12, 1), (13, 18, -1)));
+        var endAction = startAction.FollowWith(input => input.IntervalReMap((3, 12, 1), (13, 18, -1)));
         var result = endAction.Perform();
         TestContext.WriteLine(string.Join(", ", result.Probabilities
             .Select((prob) => $"{prob.Key}:{prob.Value}")));
